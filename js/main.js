@@ -38,6 +38,7 @@ function createPagination($itemsToShow) {
 
         $a.click(evt => {
             evt.preventDefault();
+
             const start = i * 10;
             const end = start + 10;
 
@@ -68,9 +69,9 @@ function createSearchForm() {
 
 function search(query) {
     // Filter student-items for the search term
-    const $results = $($studentItems.toArray().filter(studentItem => {
+    const $results = $( $studentItems.toArray().filter(studentItem => {
         return $(studentItem).find("h3").text().includes(query);
-    }));
+    }) );
 
     // Create a pagination for the results
     createPagination($results);
