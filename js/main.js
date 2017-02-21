@@ -41,8 +41,8 @@ function createPagination($itemsToShow) {
         $a.click(evt => {
             evt.preventDefault();
 
-            const start = i * 10;
-            const end = start + 10;
+            const start = i * pageSize;
+            const end = start + pageSize;
 
             $itemsToShow.hide();
             $itemsToShow.slice(start, end).show();
