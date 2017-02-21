@@ -1,32 +1,32 @@
 "use strict";
 
+const pageSize = 10;
+
 const $studentList = $(".student-list");
 const $studentItems = $(".student-item");
 
-const pageSize = 10;
 const $page = $(".page");
 const $pageHeader = $(".page-header");
 
 // Create the pagination elements
-function createPagination($items, $allItems, $element) {
-    let pageCount = Math.ceil($items.length / pageSize);
-
-    $(".pagination").remove();
-    $allItems.hide();
+function createPagination($itemsToShow) {
+    let pageCount = Math.ceil($itemsToShow.length / pageSize);
 
     const $div = $("<div class='pagination'></div>");
     const $ul = $("<ul></ul>");
 
+    $(".pagination").remove();
+    $studentItems.hide();
+
     // Append the pagination elements
     $div.append($ul);
-    $element.append($div);
+    $page.append($div);
 
     // Show the first ten students
-    $items.slice(0, 10).show();
+    $itemsToShow.slice(0, 10).show();
 
     // Create the page links
     for (let i = 0; i < pageCount; i++) {
-
         // Create the page link
         const $li = $("<li></li>")
         const $a = $(`<a class="active" href="#">${i + 1}</a>`);
@@ -36,8 +36,8 @@ function createPagination($items, $allItems, $element) {
             let start = i * 10;
             let end = start + 10;
 
-            $items.hide();
-            $items.slice(start, end).show();
+            $itemsToShow.hide();
+            $itemsToShow.slice(start, end).show();
         });
 
         // Append the page link
@@ -47,14 +47,15 @@ function createPagination($items, $allItems, $element) {
     }
 }
 
-function createSearch($items, $element) {
+
+function createSearch() {
     const $div = $("<div class='student-search'></div>");
     const $input = $("<input placeholder='Search for students...'>");
     const $button = $("<button>Search</button>");
 
     // Append the search
     $div.append($input, $button);
-    $element.append($div);
+    $pageHeader.append($div);
 
     $button.click( evt => {
         // Get the search term
@@ -66,10 +67,10 @@ function createSearch($items, $element) {
         }));
 
         // Create a pagination for the results
-        createPagination($results, $items, $page);
+        createPagination($results);
     });
 }
 
 // Create pagtination and search
-createPagination($studentItems, $studentItems, $page);
-createSearch($studentItems, $pageHeader);
+createPagination($studentItems);
+createSearch();
