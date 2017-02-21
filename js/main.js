@@ -1,25 +1,43 @@
 "use strict";
 
-const $page = $(".page");
-const $div = $("<div class='pagination'></div>");
-const $ul = $("<ul></ul>");
-
 const $studentList = $(".student-list");
 const $studentItems = $(".student-item");
 
 const pageSize = 10;
 const pageCount = Math.ceil($studentItems.length / pageSize);
 
+// Create the pagination elements
+const $page = $(".page");
+const $div = $("<div class='pagination'></div>");
+const $ul = $("<ul></ul>");
+
+// Append the pagination elements
 $div.append($ul);
 $page.append($div);
 
-for (let i = 1; i <= pageCount; i++) {
+// Show the first ten students
+$studentItems.slice(10).hide();
 
-    const $li = $(`<li><a class="active" href="#">${i}</a></li>`)
 
+// Create the page links
+for (let i = 0; i < pageCount; i++) {
 
+    // Create a page link
+    const $li = $("<li></li>")
+    const $a = $(`<a class="active" href="#">${i + 1}</a>`);
+
+    $a.click(function(evt) {
+        evt.preventDefault();
+        let start = i * 10;
+        let end = start + 10;
+
+        $studentItems.hide();
+        $studentItems.slice(start, end).show();
+    });
+
+    // Append a page link
+    $li.append($a);
     $ul.append($li);
 
 }
 
-$studentItems.slice(10).hide();
