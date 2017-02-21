@@ -43,7 +43,6 @@ function createPagination($itemsToShow) {
         // Append the page link
         $li.append($a);
         $ul.append($li);
-
     }
 }
 
@@ -57,18 +56,19 @@ function createSearch() {
     $div.append($input, $button);
     $pageHeader.append($div);
 
-    $button.click( evt => {
-        // Get the search term
-        const query = $input.val();
-
-        // Filter items for the search term
-        let $results = $($studentItems.toArray().filter(studentItem => {
-            return $(studentItem).find("h3").text().includes(query);
-        }));
-
-        // Create a pagination for the results
-        createPagination($results);
+    $button.click(evt => {
+        search($input.val());
     });
+}
+
+function search(query) {
+    // Filter items for the search term
+    let $results = $($studentItems.toArray().filter(studentItem => {
+        return $(studentItem).find("h3").text().includes(query);
+    }));
+
+    // Create a pagination for the results
+    createPagination($results);
 }
 
 // Create pagtination and search
