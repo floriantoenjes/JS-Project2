@@ -25,6 +25,11 @@ function createPagination($itemsToShow) {
     // Show the first ten students
     $itemsToShow.slice(0, 10).show();
 
+    // Return if there are less items than the page size
+    if ($itemsToShow.length <= pageSize) {
+        return;
+    }
+
     // Create the page links
     for (let i = 0; i < pageCount; i++) {
         // Create the page link
