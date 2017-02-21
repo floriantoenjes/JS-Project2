@@ -4,12 +4,13 @@ const $studentList = $(".student-list");
 const $studentItems = $(".student-item");
 
 const pageSize = 10;
-const pageCount = Math.ceil($studentItems.length / pageSize);
-
 const $page = $(".page");
+const $pageHeader = $(".page-header");
 
 // Create the pagination elements
-function createPagination($element) {
+function createPagination($items, $element) {
+    let pageCount = Math.ceil($items.length / pageSize);
+
     const $div = $("<div class='pagination'></div>");
     const $ul = $("<ul></ul>");
 
@@ -18,7 +19,7 @@ function createPagination($element) {
     $element.append($div);
 
     // Show the first ten students
-    $studentItems.slice(10).hide();
+    $items.slice(10).hide();
 
     // Create the page links
     for (let i = 0; i < pageCount; i++) {
@@ -32,8 +33,8 @@ function createPagination($element) {
             let start = i * 10;
             let end = start + 10;
 
-            $studentItems.hide();
-            $studentItems.slice(start, end).show();
+            $items.hide();
+            $items.slice(start, end).show();
         });
 
         // Append the page link
@@ -43,34 +44,19 @@ function createPagination($element) {
     }
 }
 
-function createSearch($element) {
+function createSearch($items, $element) {
     const $div = $("<div class='student-search'></div>");
     const $input = $("<input placeholder='Search for students...'>");
     const $button = $("<button>Search</button>");
 
-    $button.click(evt => {
-        evt.preventDefault();
-        let query = $input.val();
-        console.log(query);
-
-        let results = $studentItems.toArray().filter(studentItem => {
-            console.log(studentItem);
-            let $studentItem = $(studentItem);
-
-            console.log($studentItem.find("h3").text());
-            return $studentItem.find("h3").text().includes(query);
-        });
-        console.log(results);
-
-        $studentItems.hide();
-        $(results).show();
-
-    });
-
     // Append the search
     $div.append($input, $button);
     $element.append($div);
+
+    $button.click( evt => {
+    });
 }
 
-createPagination($page);
-createSearch($(".page-header"));
+// Create pagtination and search
+createPagination($studentItems, $page);
+createSearch($studentItems, $pageHeader);
