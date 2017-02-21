@@ -57,11 +57,15 @@ function createSearch($items, $element) {
     $element.append($div);
 
     $button.click( evt => {
+        // Get the search term
         const query = $input.val();
+
+        // Filter items for the search term
         let $results = $($studentItems.toArray().filter(studentItem => {
             return $(studentItem).find("h3").text().includes(query);
         }));
-        console.log($results);
+
+        // Create a pagination for the results
         createPagination($results, $items, $page);
     });
 }
