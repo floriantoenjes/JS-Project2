@@ -15,6 +15,7 @@ function createPagination($itemsToShow) {
     const $div = $("<div class='pagination'></div>");
     const $ul = $("<ul></ul>");
 
+    // Reset pagination
     $(".pagination").remove();
     $studentItems.hide();
 
@@ -22,7 +23,7 @@ function createPagination($itemsToShow) {
     $div.append($ul);
     $page.append($div);
 
-    // Show the first ten students
+    // Initially show the first ten students
     $itemsToShow.slice(0, 10).show();
 
     // Return if there are less items than the page size
@@ -36,6 +37,7 @@ function createPagination($itemsToShow) {
         const $li = $("<li></li>")
         const $a = $(`<a class="active" href="#">${i + 1}</a>`);
 
+        // Map the page link's click event
         $a.click(evt => {
             evt.preventDefault();
 
@@ -53,6 +55,7 @@ function createPagination($itemsToShow) {
 }
 
 
+// Create the search form
 function createSearchForm() {
     const $div = $("<div class='student-search'></div>");
     const $input = $("<input placeholder='Search for students...'>");
@@ -67,6 +70,7 @@ function createSearchForm() {
     });
 }
 
+// Search the students for a given query string
 function search(query) {
     // Filter student-items for the search term
     const $results = $( $studentItems.toArray().filter(studentItem => {
