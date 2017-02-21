@@ -8,9 +8,9 @@ const $studentItems = $(".student-item");
 const $page = $(".page");
 const $pageHeader = $(".page-header");
 
-// Create the pagination elements
+// Create pagination for items to show
 function createPagination($itemsToShow) {
-    let pageCount = Math.ceil($itemsToShow.length / pageSize);
+    const pageCount = Math.ceil($itemsToShow.length / pageSize);
 
     const $div = $("<div class='pagination'></div>");
     const $ul = $("<ul></ul>");
@@ -33,8 +33,8 @@ function createPagination($itemsToShow) {
 
         $a.click(evt => {
             evt.preventDefault();
-            let start = i * 10;
-            let end = start + 10;
+            const start = i * 10;
+            const end = start + 10;
 
             $itemsToShow.hide();
             $itemsToShow.slice(start, end).show();
@@ -47,7 +47,7 @@ function createPagination($itemsToShow) {
 }
 
 
-function createSearch() {
+function createSearchForm() {
     const $div = $("<div class='student-search'></div>");
     const $input = $("<input placeholder='Search for students...'>");
     const $button = $("<button>Search</button>");
@@ -62,15 +62,20 @@ function createSearch() {
 }
 
 function search(query) {
-    // Filter items for the search term
-    let $results = $($studentItems.toArray().filter(studentItem => {
+    // Filter student-items for the search term
+    const $results = $($studentItems.toArray().filter(studentItem => {
         return $(studentItem).find("h3").text().includes(query);
     }));
 
     // Create a pagination for the results
     createPagination($results);
+
+    // Create a message if no matches are found
+    if ($results.length === 0) {
+        $page.append($("<h3>No matches found.</h3>"));
+    }
 }
 
 // Create pagtination and search
 createPagination($studentItems);
-createSearch();
+createSearchForm();
