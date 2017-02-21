@@ -8,8 +8,11 @@ const $page = $(".page");
 const $pageHeader = $(".page-header");
 
 // Create the pagination elements
-function createPagination($items, $element) {
+function createPagination($items, $allItems, $element) {
     let pageCount = Math.ceil($items.length / pageSize);
+
+    $(".pagination").remove();
+    $allItems.hide();
 
     const $div = $("<div class='pagination'></div>");
     const $ul = $("<ul></ul>");
@@ -19,7 +22,7 @@ function createPagination($items, $element) {
     $element.append($div);
 
     // Show the first ten students
-    $items.slice(10).hide();
+    $items.slice(0, 10).show();
 
     // Create the page links
     for (let i = 0; i < pageCount; i++) {
@@ -54,9 +57,15 @@ function createSearch($items, $element) {
     $element.append($div);
 
     $button.click( evt => {
+        const query = $input.val();
+        let $results = $($studentItems.toArray().filter(studentItem => {
+            return $(studentItem).find("h3").text().includes(query);
+        }));
+        console.log($results);
+        createPagination($results, $items, $page);
     });
 }
 
 // Create pagtination and search
-createPagination($studentItems, $page);
+createPagination($studentItems, $studentItems, $page);
 createSearch($studentItems, $pageHeader);
