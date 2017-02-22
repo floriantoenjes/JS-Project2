@@ -41,7 +41,7 @@ function createPagination($itemsToShow) {
         const $li = $("<li></li>")
         const $a = $(`<a class="active" href="#">${i + 1}</a>`);
 
-        // Map the page link's click event
+        // Map the page link's click event to show the current students
         $a.click(evt => {
             evt.preventDefault();
 
