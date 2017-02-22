@@ -86,10 +86,9 @@ function search(query) {
     createPagination($results);
 
     // Create a message if no matches are found
+    $(".no-matches").remove();
     if ($results.length === 0) {
         $page.append($("<h3 class='no-matches'>No matches found.</h3>"));
-    } else {
-        $(".no-matches").remove();
     }
 }
 
