@@ -10,8 +10,11 @@ const $pageHeader = $(".page-header");
 
 // Create pagination for items to show
 function createPagination($itemsToShow) {
+
+    // Calculate how many pages are needed
     const pageCount = Math.ceil($itemsToShow.length / pageSize);
 
+    // Create the pagination div
     const $div = $("<div class='pagination'></div>");
     const $ul = $("<ul></ul>");
 
@@ -33,6 +36,7 @@ function createPagination($itemsToShow) {
 
     // Create the page links
     for (let i = 0; i < pageCount; i++) {
+
         // Create the page link
         const $li = $("<li></li>")
         const $a = $(`<a class="active" href="#">${i + 1}</a>`);
@@ -72,6 +76,7 @@ function createSearchForm() {
 
 // Search the students for a given query string
 function search(query) {
+
     // Filter student-items for the search term
     const $results = $( $studentItems.toArray().filter(studentItem => {
         return $(studentItem).find("h3").text().includes(query);
