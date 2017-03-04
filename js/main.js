@@ -8,28 +8,23 @@ const $studentItems = $(".student-item");
 const $page = $(".page");
 const $pageHeader = $(".page-header");
 
-// Create pagination for items to show
 function createPagination($itemsToShow) {
 
-    // Calculate how many pages are needed
     const pageCount = Math.ceil($itemsToShow.length / pageSize);
 
-    // Create the pagination div
-    const $div = $("<div class='pagination'></div>");
-    const $ul = $("<ul></ul>");
+    const $paginationDiv = $("<div class='pagination'></div>");
+    const $paginationList = $("<ul></ul>");
 
     // Reset pagination
     $(".pagination").remove();
     $studentItems.hide();
 
-    // Append the pagination elements
-    $div.append($ul);
-    $page.append($div);
+    $paginationDiv.append($paginationList);
+    $page.append($paginationDiv);
 
     // Initially show the first ten students
     $itemsToShow.slice(0, 10).show();
 
-    // Return if there are less items than the page size
     if ($itemsToShow.length <= pageSize) {
         return;
     }
@@ -37,12 +32,11 @@ function createPagination($itemsToShow) {
     // Create the page links
     for (let i = 0; i < pageCount; i++) {
 
-        // Create the page link
         const $li = $("<li></li>")
-        const $a = $(`<a class="active" href="#">${i + 1}</a>`);
+        const $pageLink = $(`<a class="active" href="#">${i + 1}</a>`);
 
         // Map the page link's click event to show the current students
-        $a.click(evt => {
+        $pageLink.click(evt => {
             evt.preventDefault();
 
             const start = i * pageSize;
@@ -52,25 +46,22 @@ function createPagination($itemsToShow) {
             $itemsToShow.slice(start, end).show();
         });
 
-        // Append the page link
-        $li.append($a);
-        $ul.append($li);
+        $li.append($pageLink);
+        $paginationList.append($li);
     }
 }
 
 
-// Create the search form
 function createSearchForm() {
-    const $div = $("<div class='student-search'></div>");
-    const $input = $("<input placeholder='Search for students...'>");
-    const $button = $("<button>Search</button>");
+    const $searchDiv = $("<div class='student-search'></div>");
+    const $searchInput = $("<input placeholder='Search for students...'>");
+    const $searchButton = $("<button>Search</button>");
 
-    // Append the search
-    $div.append($input, $button);
-    $pageHeader.append($div);
+    $searchDiv.append($searchInput, $searchButton);
+    $pageHeader.append($searchDiv);
 
-    $button.click(evt => {
-        search($input.val());
+    $searchButton.click(evt => {
+        search($searchInput.val());
     });
 }
 
@@ -82,7 +73,6 @@ function search(query) {
         return $(studentItem).find("h3").text().includes(query);
     }) );
 
-    // Create a pagination for the results
     createPagination($results);
 
     // Create a message if no matches are found
@@ -92,6 +82,5 @@ function search(query) {
     }
 }
 
-// Create pagtination and search
 createPagination($studentItems);
 createSearchForm();
